@@ -1,0 +1,28 @@
+---
+capacity: <%= node['cloudfoundry_vblob_service']['node']['capacity'] %>
+plan: free
+local_db: sqlite3:<%= node['cloudfoundry_vblob_service']['node']['base_dir'] %>/vblob_node.db
+mbus: nats://<%= node['cloudfoundry_common']['nats_server']['user'] %>:<%= node['cloudfoundry_common']['nats_server']['password'] %>@<%= node['cloudfoundry_common']['nats_server']['host'] %>:<%= node['cloudfoundry_common']['nats_server']['port'] %>/
+index: <%= node['cloudfoundry_vblob_service']['node']['index'] %>
+base_dir: <%= node['cloudfoundry_vblob_service']['node']['instances_dir'] %>
+pid: <%= @pid_file %>
+logging:
+  level: <%= node['cloudfoundry_vblob_service']['node']['log_level'] %>
+vblobd_log_dir: <%= node['cloudfoundry_vblob_service']['node']['db_logs_dir'] %>
+
+supported_versions: <%= "['#{node['cloudfoundry_vblob_service']['supported_versions'].keys.join("', '")}']"%>
+default_version: '<%= node['cloudfoundry_vblob_service']['node']['default_version'] %>'
+
+max_memory: <%= node['cloudfoundry_vblob_service']['node']['max_memory'] %>
+node_id: <%= "vblob_node_#{node['cloudfoundry_vblob_service']['node']['index']}" %>
+op_time_limit: <%= node['cloudfoundry_vblob_service']['node']['op_time_limit'] %>
+vblob_timeout: <%= node['cloudfoundry_vblob_service']['node']['vblob_timeout'] %>
+vblob_start_timeout: <%= node['cloudfoundry_vblob_service']['node']['vblob_start_timeout'] %>
+nodejs_path: <%= File.join(node['nodejs']['dir'], 'bin', 'node') %>
+vblobd_path: <%= node['cloudfoundry_vblob_service']['vblob']['path'] %>
+vblobd_auth: <%= node['cloudfoundry_vblob_service']['node']['vblob_auth'] %>
+vblobd_quota: <%= node['cloudfoundry_vblob_service']['node']['vblob_quota'] %>
+vblobd_obj_limit: <%= node['cloudfoundry_vblob_service']['node']['vblob_obj_limit'] %>
+port_range:
+  first: <%= node['cloudfoundry_vblob_service']['node']['port_range']['first'] %>
+  last: <%= node['cloudfoundry_vblob_service']['node']['port_range']['last'] %>
